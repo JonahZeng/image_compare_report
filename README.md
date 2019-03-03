@@ -7,7 +7,7 @@
 
 废话不多说了，上代码：
 
-```python
+```python3
 #! /usr/local/bin/python3
 # _*_ encoding=utf-8 _*_
 
@@ -38,7 +38,7 @@ same_cnt = np.sum(same_cord)
 print('相同：', same_cnt)
 
 print('不重要差异：', diff.size-improtant_diff_cnt-same_cnt)
-#先填充蓝色，然后在相同的坐标位置填充白色，重要差异坐标填红色，注意B/G/R顺序
+#先填充蓝色，然后在相同的坐标位置填充白色，重要差异坐标填红色，注意B/G/R顺序
 img_diff[:, :, 0]=255
 img_diff[same_cord,:]=0,0,0
 img_diff[import_cord,:]=0,0,255
