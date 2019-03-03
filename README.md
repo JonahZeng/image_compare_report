@@ -1,13 +1,11 @@
-# python 30行代码实现beyond compare图片比较报告功能
+# python 30行代码实现beyond compare图片比较报告功能
 
 -----------------------
-最近换了工作，满满的坑，正如签名，留下是坚韧，也可能是贱人；
-
 ## 目的
 
-我现在的工作每天都要批量仿真图片，就是拿同一批raw进行在PC上仿真ISP，看看算法改动有没有效果啥的，问题来了，每跑一次大概300张的样子，手动一张一张的用beyond compare或者fast stone之类的看图工具去比，不仅效率低，还容易漏看(其实是主要是累^_^)；于是，为什么不动手写个脚本啥的让PC告诉我哪些图片差异大？
+我现在的工作每天都要批量仿真图片，就是拿同一批raw进行在PC上仿真ISP，看看算法改动有没有效果啥的，问题来了，每跑一次大概300张的样子，手动一张一张的用beyond compare或者fast stone之类的看图工具去比，不仅效率低，还容易漏看(其实是主要是累^_^)；于是，为什么不动手写个脚本啥的让PC告诉我哪些图片差异大？
 
-废话不多说了，上代码：
+废话不多说了，上代码：
 
 ```python
 #! /usr/local/bin/python3
@@ -20,10 +18,10 @@ import numpy as np
 img1 = cv.imread('1.jpg')
 img2 = cv.imread('3.jpg')
 
-#ndarray类型转换，为什么？因为两个ndarray相减可能有负数元素
+#ndarray类型转换，为什么？因为两个ndarray相减可能有负数元素
 img1 = np.asarray(img1, dtype=np.int16)
 img2 = np.asarray(img2, dtype=np.int16)
-#新建一个结果图，用来显示差异，红色代表差异大，黑色代表相同，蓝色代表小差异
+#新建一个结果图，用来显示差异，红色代表差异大，黑色代表相同，蓝色代表小差异
 img_diff = np.full_like(img1, 0, dtype=np.uint8)
 #ndarray相减，元素逐个相减
 diff = img1 - img2
@@ -31,7 +29,7 @@ diff = img1 - img2
 diff = np.absolute(diff, casting='no')
 #r/g/b差求和
 diff = diff.sum(axis=2)
-#大于27，认为是重要差异，小于5定义为相同，这个地方看压缩情况，压缩率低的话，不用5这么大
+#大于27，认为是重要差异，小于5定义为相同，这个地方看压缩情况，压缩率低的话，不用5这么大
 import_cord = diff>27
 same_cord = diff<=5
 improtant_diff_cnt = np.sum(import_cord)
